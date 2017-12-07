@@ -1,17 +1,13 @@
 
-const os = require('os');
-
 
 class LineMapper {
 
 // function to find correct line of code, which contains invalid COMMAND
-// strs - script from input
+// commandMap - splitted by EOL script from input
 // num - number of invalid command
-  static findLineOfCommandStart(strs, num) {
+  static findLineOfCommandStart(commandMap, num) {
     if (num < 0)
       return -1;
-
-    const commandMap = strs.split(os.EOL);
 
     if (num >= commandMap.length)
       return -1;
@@ -22,11 +18,18 @@ class LineMapper {
 
       if (commandMap[i]) {
         // skip comments
+        if (commandMap[i].indexOf('/*') != -1) {
+          while ((commandMap[i].indexOf('*/') == -1) && (i < commandMap.length))
+            i++;
+
+          continue;
+        }
+
         if (commandMap[i].trim().indexOf('/') == 0)
           continue;
 
-        if (commandMap[i].indexOf('/*') != -1) {
-          while ((commandMap[i].indexOf('*/') == -1) && (i < commandMap.length))
+        if (commandMap[i].indexOf('<*') != -1) {
+          while ((commandMap[i].indexOf('*>') == -1) && (i < commandMap.length))
             i++;
 
           continue;

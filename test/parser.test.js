@@ -1,5 +1,9 @@
+
+
+const os = require('os');
 const parser = require('../index');
 const ParserError = require('../src/exceptions/parserError');
+
 
 const scripts =
 `set('tags')
@@ -9,9 +13,9 @@ const scripts =
 ?>
 // test
 
-/*
+<*
   test
-*/
+*>
 
 append({{datasets}})
 wrap(
@@ -27,9 +31,9 @@ DB totals:<br/>datasets:&nbsp;
 ?>
 // test
 
-/*
+<*
 test
-*/
+*>
 
 append({{datasets}})
 wrap(
@@ -44,9 +48,9 @@ const scriptsWithErr1 =
   DB totals:<br/>datasets:&nbsp;
 ?>
 // test
-/*
+<*
   test
-*/
+*>
 append({datasets}})
 wrap(
   tag:'div', style:'margin:0'
